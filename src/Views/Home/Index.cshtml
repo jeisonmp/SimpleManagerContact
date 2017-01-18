@@ -1,0 +1,107 @@
+﻿@model List<SimpleManagerContact.model.Client>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h2>Customer List</h2>
+    <a class="btn btn-secondary btn-sm" href="@Url.Action("Logoff", "Home")" role="button">Logoff</a>
+</div>
+
+
+<div class="row" style="padding-left:60px; padding-right:60px;">
+    <div class="col-md-10">
+        <form id="CustomerListFieldsForm">
+            <div class="row" style="margin-bottom:5px">
+                <div class="col-md-6">
+                    @Html.Label("Name")
+                    @Html.TextBox("Name")
+                </div>
+                <div class="col-md-6">
+                    @Html.Label("Gender")
+                    @Html.TextBox("Gender")
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:5px">
+                <div class="col-md-6">
+                    @Html.Label("City")
+                    @Html.TextBox("City")
+                </div>
+                <div class="col-md-6">
+                    @Html.Label("Region")
+                    @Html.TextBox("Region")
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:5px">
+                <div class="col-md-6">
+                    @Html.Label("LastPurchase")
+                    @Html.TextBox("LastPurchase")
+                </div>
+                <div class="col-md-6">
+                    @Html.Label("Until")
+                    @Html.TextBox("Until")
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:5px">
+                <div class="col-md-6">
+                    @Html.Label("Classification")
+                    @Html.TextBox("Classification")
+                </div>
+                <div class="col-md-6">
+                    @Html.Label("Seller")
+                    @Html.TextBox("Seller")
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-2">
+        <div class="row" style="margin-bottom:5px">
+            <input id="btnSearch" class="btn btn-default" style="min-width:120px" type="button" value="Search">
+        </div>
+        <div class="row" style="margin-bottom:5px">
+            <input id="btnClear" class="btn btn-default" style="min-width:120px" type="button" value="Clear Field">
+        </div>
+    </div>
+</div>
+
+<div style="margin-top:50px">
+    @Html.Partial("_customerList", Model)
+</div>
+
+@section Scripts {
+<script>
+
+    $('#btnClear').click(function (e) {
+        var data = $('#CustomerListFieldsForm').serializeFormToJSON();
+    });
+
+    $('#btnSearch').click(function (e) {
+        debugger;
+        var client = $('#CustomerListFieldsForm').serializeFormToJSON();
+        var success = false;
+
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: '@Url.Action("CustomerFilter", "Home")',
+            dataType: "json",
+            data:
+            {
+                client: client
+            },
+            success: function (result) {
+                success = result.success;
+                //submitSuccess(result);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+        return success;
+
+    });
+
+</script>
+}

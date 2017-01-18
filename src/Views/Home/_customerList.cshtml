@@ -1,0 +1,46 @@
+﻿@model List<SimpleManagerContact.model.Client>
+
+<div>
+    <div>
+        <table id="tbCustomerListContact" class="table table-bordered table-striped">
+            <thead>
+                <tr style="font:bold">
+                    <th>Classification</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Gender</th>
+                    <th>City</th>
+                    <th>Region</th>
+                    <th>Last Purchase</th>
+                    @{
+                        if (ViewBag.Administrator)
+                        {
+                            <th>Seller</th>
+                        }
+                    }
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var client in Model)
+                {
+                    <tr>
+                        <td>@client.Classification.ClassificationName</td>
+                        <td>@client.Name</td>
+                        <td>@client.Phone</td>
+                        <td>@client.Gender</td>
+                        <td>@client.Region.City.CityName</td>
+                        <td>@client.Region.RegionName</td>
+                        <td>@client.LastPurchase</td>
+                        @{
+                            if (ViewBag.Administrator)
+                            {
+                                <td>@client.User.Name</td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

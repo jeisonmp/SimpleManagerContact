@@ -1,0 +1,69 @@
+﻿@model SimpleManagerContact.portal.Models.Login
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title> Index Simple Manager Contact </title>
+</head>
+<body>
+
+    <div>
+        @using (Ajax.BeginForm("Authentication", "Login", null,
+                new AjaxOptions()
+                {
+                    HttpMethod = "POST",
+                    OnFailure = "submitFailureDefault",
+                    OnSuccess = "submitSuccess"
+                },
+                new { id = "loginForm" }))
+        {
+            @Html.AntiForgeryToken()
+            <div>
+                @Html.LabelFor(m => m.UserName)
+                @Html.EditorFor(m => m.UserName)
+                @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "text-danger" })
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Password)
+                @Html.EditorFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
+            </div>
+            <div>
+                <button id="btnLogin" type="button" class="btn-default" onclick="$('#loginForm').submit()">
+                    @Resources.Resource.ResourceManager.GetString("Label_Logar")
+                </button>
+            </div>
+        }
+    </div>
+</body>
+</html>
+
+
+
+@section Scripts {
+<script>
+
+    function submitSuccess(data, status, xhr) {
+        
+        if (data.success) {
+            window.location = data.data;
+        }
+        else {
+            alert(data.message);
+        }
+    }
+
+    $('#btnLogin').click(function (e) {
+        e.preventDefault();
+        if ($("#loginForm").valid()) {
+            return false;
+        }
+        else {
+            return false;
+        }
+    });
+
+</script>
+}
