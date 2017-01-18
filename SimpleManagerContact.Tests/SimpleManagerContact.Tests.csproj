@@ -92,7 +92,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\SimpleManagerContact.portal.csproj">
+    <ProjectReference Include="..\SimpleManagerContact.portal\SimpleManagerContact.portal.csproj">
       <Project>{716E67F5-EC18-4B32-897D-0729272A83E6}</Project>
       <Name>SimpleManagerContact.portal</Name>
     </ProjectReference>

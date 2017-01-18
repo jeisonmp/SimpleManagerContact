@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleManagerContact.portal", "src\SimpleManagerContact.portal.csproj", "{716E67F5-EC18-4B32-897D-0729272A83E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleManagerContact.portal", "SimpleManagerContact.portal\SimpleManagerContact.portal.csproj", "{716E67F5-EC18-4B32-897D-0729272A83E6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{48F2B003-D4CB-4447-803B-C67E3C9159D2} = {48F2B003-D4CB-4447-803B-C67E3C9159D2}
 		{B0563CD5-C35D-411B-93AE-44AC40318370} = {B0563CD5-C35D-411B-93AE-44AC40318370}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleManagerContact.Tests", "src.Tests\SimpleManagerContact.Tests.csproj", "{53F21922-0E26-4FDC-A8E1-4BD7289EFA36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleManagerContact.Tests", "SimpleManagerContact.Tests\SimpleManagerContact.Tests.csproj", "{53F21922-0E26-4FDC-A8E1-4BD7289EFA36}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleManagerContact.model", "SimpleManagerContact.model\SimpleManagerContact.model.csproj", "{B0563CD5-C35D-411B-93AE-44AC40318370}"
 EndProject
