@@ -148,7 +148,7 @@
 
     $('#btnSearch').click(function (e) {
         debugger;
-        var client = $('#CustomerListFieldsForm').serializeFormToJSON();
+        var fields = $('#CustomerListFieldsForm').serializeFormToJSON();
         var success = false;
 
         $.ajax({
@@ -158,11 +158,12 @@
             dataType: "json",
             data:
             {
-                client: client
+                fields: fields
             },
             success: function (result) {
-                success = result.success;
-                //submitSuccess(result);
+                if (result.success) {
+                    updatingContacts(result.data);
+                }
             },
             error: function (error) {
                 console.log(error);
@@ -172,6 +173,16 @@
         return success;
 
     });
+
+    function updatingContacts(data) {
+        $('#tbCustomerListContact tbody').remove();
+
+        $.each(data, function (idx, obj) {
+            $('#tbCustomerListContact').append(
+                $('<option></option>').val(obj['Value']).html(obj['Text'])
+            );
+        });
+    }
 
 </script>
 }

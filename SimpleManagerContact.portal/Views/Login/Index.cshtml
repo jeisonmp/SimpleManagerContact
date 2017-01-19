@@ -8,8 +8,18 @@
     <title> Index Simple Manager Contact </title>
 </head>
 <body>
-
-    <div>
+    <style type="text/css">
+        #centro {
+	        width:200px;
+	        height:100px;
+	        position:absolute;
+	        top:50%;
+	        left:50%;
+	        margin-top:-50px;
+	        margin-left:-150px;
+        }
+    </style>
+    <div id="centro">
         @using (Ajax.BeginForm("Authentication", "Login", null,
                 new AjaxOptions()
                 {
@@ -21,7 +31,7 @@
         {
             @Html.AntiForgeryToken()
             <div class="row" style="margin-bottom:5px">
-                <div class="col-md-1">
+                <div class="col-md-4">
                     @Html.LabelFor(m => m.UserName)
                 </div>
                 <div class="col-md-4">
@@ -30,7 +40,7 @@
                 @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "text-danger" })
             </div>
             <div class="row" style="margin-bottom:5px">
-                <div class="col-md-1">
+                <div class="col-md-4">
                     @Html.LabelFor(m => m.Password)
                 </div>
                 <div class="col-md-4">
@@ -39,12 +49,12 @@
                 @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
             </div>
             <div class="row" style="margin-bottom:5px">
-                <div class="col-md-1">
+                <div class="col-md-2">
                     &nbsp;
                 </div>
             </div>
             <div class="row" style="margin-bottom:5px">
-                <div class="col-md-1">
+                <div class="col-md-4">
                     &nbsp;
                 </div>
                 <div class="col-md-4">

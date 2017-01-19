@@ -110,28 +110,7 @@ namespace SimpleManagerContact.portal.Controllers
 
             return RedirectToAction("Index");
         }
-
-        [HttpPost]
-        public ActionResult CustomerFilter(Client client)
-        {
-            try
-            {
-                var ret = new JsonAction
-                {
-                    success = true,
-                    message = "Successfully",
-                    data = Url.Action("Index", "Home")
-                };
-
-                return Json(ret);
-            }
-            catch (Exception)
-            {
-                var ret = new JsonAction { success = false, message = "Something's Wrong" };
-                return Json(ret);
-            }
-        }
-
+        
         [HttpPost]
         public ActionResult UpdateRegions(Guid? CityId = null)
         {
@@ -154,6 +133,29 @@ namespace SimpleManagerContact.portal.Controllers
                 };
 
                 ViewBag.Regions = list;
+
+                return Json(ret);
+            }
+            catch (Exception)
+            {
+                var ret = new JsonAction { success = false, message = "Something's Wrong" };
+                return Json(ret);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CustomerFilter(dynamic fields)
+        {
+            try
+            {
+                var clients = new core.Controllers.ClientController().Search(fields);
+
+                var ret = new JsonAction
+                {
+                    success = true,
+                    message = "Successfully",
+                    data = clients
+                };
 
                 return Json(ret);
             }
