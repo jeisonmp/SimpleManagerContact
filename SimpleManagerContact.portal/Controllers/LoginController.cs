@@ -38,6 +38,7 @@ namespace SimpleManagerContact.portal.Controllers
                 SiteSession.Current.User = user;
                 SiteSession.Current.Login = user.Email;
                 SiteSession.Current.Password = user.Password;
+                SiteSession.Current.Administrator = user.Name.ToUpper().Contains("ADMIN");
 
                 JsonAction jsonObject = new JsonAction();
                 jsonObject.success = true;

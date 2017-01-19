@@ -23,23 +23,12 @@ namespace SimpleManagerContact.portal.Controllers
         [Session]
         public ActionResult Index()
         {
-            ViewBag.Administrator = this.GetAdministrator();
+            ViewBag.Administrator = SiteSession.Current.Administrator;
             ViewBag.Cities = this.GetCities();
             ViewBag.Classifications = this.GetClassifications();
             ViewBag.Sellers = this.GetSellers();
 
             return View(new core.Controllers.ClientController().GetList(SiteSession.Current.User));
-        }
-
-        private bool GetAdministrator()
-        {
-            var val = false;
-            if (SiteSession.Current.User != null)
-            {
-                val = SiteSession.Current.User.Name.ToUpper().Contains("ADMIN");
-            }
-
-            return val;
         }
 
         private IEnumerable<SelectListItem> GetCities()
@@ -142,28 +131,14 @@ namespace SimpleManagerContact.portal.Controllers
                 return Json(ret);
             }
         }
-
+        
         [HttpPost]
-        public ActionResult CustomerFilter(dynamic fields)
+        public ActionResult CustomerFilter(CustomerFields fields, User user = null)
         {
-            try
-            {
-                var clients = new core.Controllers.ClientController().Search(fields);
+            ViewBag.Administrator = SiteSession.Current.Administrator;
 
-                var ret = new JsonAction
-                {
-                    success = true,
-                    message = "Successfully",
-                    data = clients
-                };
-
-                return Json(ret);
-            }
-            catch (Exception)
-            {
-                var ret = new JsonAction { success = false, message = "Something's Wrong" };
-                return Json(ret);
-            }
+            var clients = new core.Controllers.ClientController().Search(fields, user == null ? SiteSession.Current.User : user);
+            return PartialView("_customerList", clients);
         }
     }
 }

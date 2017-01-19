@@ -37,6 +37,7 @@ namespace SimpleManagerContact.portal.Utils
         public User User { get; set; }
         public string Login { get; set; }
         public String Password { get; set; }
+        public bool Administrator { get; set; }
 
         public static bool IsValid()
         {

@@ -88,8 +88,8 @@
     </div>
 </div>
 
-<div style="margin-top:50px">
-    @Html.Partial("_customerList", Model)
+<div class="table-customer" style="margin-top:50px">
+    @*Table contacts*@
 </div>
 
 @section Scripts {
@@ -146,8 +146,12 @@
         var data = $('#CustomerListFieldsForm').serializeFormToJSON();
     });
 
+    updatingContacts()
     $('#btnSearch').click(function (e) {
-        debugger;
+        updatingContacts();
+    });
+
+    function updatingContacts() {
         var fields = $('#CustomerListFieldsForm').serializeFormToJSON();
         var success = false;
 
@@ -155,15 +159,14 @@
             type: "POST",
             async: false,
             url: '@Url.Action("CustomerFilter", "Home")',
-            dataType: "json",
+            dataType: "html",
             data:
             {
                 fields: fields
             },
             success: function (result) {
-                if (result.success) {
-                    updatingContacts(result.data);
-                }
+                debugger;
+                $(".table-customer").html(result)
             },
             error: function (error) {
                 console.log(error);
@@ -171,17 +174,6 @@
         });
 
         return success;
-
-    });
-
-    function updatingContacts(data) {
-        $('#tbCustomerListContact tbody').remove();
-
-        $.each(data, function (idx, obj) {
-            $('#tbCustomerListContact').append(
-                $('<option></option>').val(obj['Value']).html(obj['Text'])
-            );
-        });
     }
 
 </script>

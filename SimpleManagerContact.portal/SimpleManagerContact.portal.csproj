@@ -204,6 +204,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Auth.cs" />
+    <Compile Include="Models\CustomerFields.cs" />
     <Compile Include="Models\JsonAction.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\UserTypes.cs" />
