@@ -79,7 +79,7 @@ namespace SimpleManagerContact.portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Senha é obrigatória!.
+        ///   Looks up a localized string similar to Password required!.
         /// </summary>
         internal static string Error_Password_Required {
             get {
@@ -88,7 +88,7 @@ namespace SimpleManagerContact.portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Usuário é obrigatório!.
+        ///   Looks up a localized string similar to E-mail required!.
         /// </summary>
         internal static string Error_Username_Required {
             get {
@@ -142,7 +142,7 @@ namespace SimpleManagerContact.portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Entrar.
+        ///   Looks up a localized string similar to Login.
         /// </summary>
         internal static string Label_Logar {
             get {
@@ -151,7 +151,7 @@ namespace SimpleManagerContact.portal.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Senha.
+        ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string Label_Password {
             get {
@@ -165,6 +165,15 @@ namespace SimpleManagerContact.portal.Resources {
         internal static string Label_Password_Confirmation {
             get {
                 return ResourceManager.GetString("Label_Password_Confirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to E-mail.
+        /// </summary>
+        internal static string Label_UserName {
+            get {
+                return ResourceManager.GetString("Label_UserName", resourceCulture);
             }
         }
     }

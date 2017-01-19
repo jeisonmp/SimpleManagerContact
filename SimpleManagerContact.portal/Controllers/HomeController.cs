@@ -25,6 +25,8 @@ namespace SimpleManagerContact.portal.Controllers
         {
             ViewBag.Administrator = this.GetAdministrator();
             ViewBag.Cities = this.GetCities();
+            ViewBag.Classifications = this.GetClassifications();
+            ViewBag.Sellers = this.GetSellers();
 
             return View(new core.Controllers.ClientController().GetList(SiteSession.Current.User));
         }
@@ -44,7 +46,7 @@ namespace SimpleManagerContact.portal.Controllers
         {
             IEnumerable<SelectListItem> list = null;
             var cities = new core.Controllers.CityController().GetList();
-            cities.Insert(0, new City() { CityName = "All" });
+            cities.Insert(0, new City() { CityName = "Select" });
 
             if (cities.Count > 0)
             {
@@ -54,6 +56,44 @@ namespace SimpleManagerContact.portal.Controllers
                         Value = o.CityId.ToString(),
                         Text = o.CityName,
                         Selected = cities.First().CityId == o.CityId
+                    });
+            }
+
+            return list;
+        }
+
+        private IEnumerable<SelectListItem> GetClassifications()
+        {
+            IEnumerable<SelectListItem> list = null;
+            var items = new core.Controllers.ClassificationController().GetList();
+            items.Insert(0, new Classification() { ClassificationName = "Select" });
+
+            if (items.Count > 0)
+            {
+                list = items
+                    .Select(o => new SelectListItem
+                    {
+                        Value = o.ClassificationId.ToString(),
+                        Text = o.ClassificationName
+                    });
+            }
+
+            return list;
+        }
+
+        private IEnumerable<SelectListItem> GetSellers()
+        {
+            IEnumerable<SelectListItem> list = null;
+            var items = new core.Controllers.UserController().GetList();
+            items.Insert(0, new User() { Name = "Select" });
+
+            if (items.Count > 0)
+            {
+                list = items
+                    .Select(o => new SelectListItem
+                    {
+                        Value = o.UserId.ToString(),
+                        Text = o.Name
                     });
             }
 
@@ -98,7 +138,7 @@ namespace SimpleManagerContact.portal.Controllers
             try
             {
                 var regions = new core.Controllers.RegionController().GetList(CityId);
-                regions.Insert(0, new Region() { RegionName = "All" });
+                regions.Insert(0, new Region() { RegionName = "Select" });
 
                 IEnumerable<SelectListItem> list = regions
                 .Select(o => new SelectListItem

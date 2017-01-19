@@ -20,20 +20,38 @@
                 new { id = "loginForm" }))
         {
             @Html.AntiForgeryToken()
-            <div>
-                @Html.LabelFor(m => m.UserName)
-                @Html.EditorFor(m => m.UserName)
+            <div class="row" style="margin-bottom:5px">
+                <div class="col-md-1">
+                    @Html.LabelFor(m => m.UserName)
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(m => m.UserName)
+                </div>
                 @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "text-danger" })
             </div>
-            <div>
-                @Html.LabelFor(m => m.Password)
-                @Html.EditorFor(m => m.Password)
+            <div class="row" style="margin-bottom:5px">
+                <div class="col-md-1">
+                    @Html.LabelFor(m => m.Password)
+                </div>
+                <div class="col-md-4">
+                    @Html.EditorFor(m => m.Password)
+                </div>
                 @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
             </div>
-            <div>
-                <button id="btnLogin" type="button" class="btn-default" onclick="$('#loginForm').submit()">
-                    @Resources.Resource.ResourceManager.GetString("Label_Logar")
-                </button>
+            <div class="row" style="margin-bottom:5px">
+                <div class="col-md-1">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:5px">
+                <div class="col-md-1">
+                    &nbsp;
+                </div>
+                <div class="col-md-4">
+                    <button id="btnLogin" type="button" class="btn-default" onclick="$('#loginForm').submit()">
+                        @Resources.Resource.ResourceManager.GetString("Label_Logar")
+                    </button>
+                </div>
             </div>
         }
     </div>

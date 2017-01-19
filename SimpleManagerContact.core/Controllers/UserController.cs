@@ -15,5 +15,13 @@ namespace SimpleManagerContact.core.Controllers
                 return db.User.Where(o => o.Email == username && o.Password == password).FirstOrDefault();
             }
         }
+
+        public List<User> GetList()
+        {
+            using (var db = new DBModel())
+            {
+                return db.User.OrderBy(o => o.Name).ToList();
+            }
+        }
     }
 }

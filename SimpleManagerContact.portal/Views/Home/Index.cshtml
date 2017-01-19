@@ -14,48 +14,67 @@
     <div class="col-md-10">
         <form id="CustomerListFieldsForm">
             <div class="row" style="margin-bottom:5px">
-                <div class="col-md-6">
+                <div class="col-md-2">
                     @Html.Label("Name")
+                </div>
+                <div class="col-md-4">
                     @Html.TextBox("Name")
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-1">
                     @Html.Label("Gender")
+                </div>
+                <div class="col-md-4">
                     @Html.DropDownList("Gender", new List<SelectListItem>() {
-                        new SelectListItem(){ Value="", Text="All" },
+                        new SelectListItem(){ Value="", Text="Select" },
                         new SelectListItem(){ Value="M", Text="Male" },
                         new SelectListItem(){ Value="F", Text="Female" }
                     })
                 </div>
             </div>
             <div class="row" style="margin-bottom:5px">
-                <div class="col-md-6">
+                <div class="col-md-2">
                     @Html.Label("City")
+                </div>
+                <div class="col-md-4">
                     @Html.DropDownList("City", (IEnumerable<SelectListItem>)ViewBag.Cities, null, new { @id = "lstCities" })
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-1">
                     @Html.Label("Region")
+                </div>
+                <div class="col-md-4">
                     @Html.DropDownList("Region", Enumerable.Empty<SelectListItem>(), null, new { @id = "lstRegion" })
                 </div>
             </div>
             <div class="row" style="margin-bottom:5px">
-                <div class="col-md-6">
+                <div class="col-md-2">
                     @Html.Label("LastPurchase")
-                    @Html.Editor("LastPurchase", new { @id = "dtLastPurchase" })
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
+                    @Html.TextBox("LastPurchase", null, new { @id = "dtLastPurchase" })
+                </div>
+                <div class="col-md-1">
                     @Html.Label("Until")
-                    @Html.Editor("Until", new { @id = "dtUntil" })
+                </div>
+                <div class="col-md-4">
+                    @Html.TextBox("Until", null, new { @id = "dtUntil" })
                 </div>
             </div>
             <div class="row" style="margin-bottom:5px">
-                <div class="col-md-6">
+                <div class="col-md-2">
                     @Html.Label("Classification")
-                    @Html.TextBox("Classification")
                 </div>
-                <div class="col-md-6">
-                    @Html.Label("Seller")
-                    @Html.TextBox("Seller")
+                <div class="col-md-4">
+                    @Html.DropDownList("Classification", (IEnumerable<SelectListItem>)ViewBag.Classifications, null, new { @id = "lstClassification" })
                 </div>
+                @if (ViewBag.Administrator)
+                {
+                    <div class="col-md-1">
+                        @Html.Label("Sellers")
+                    </div>
+                    <div class="col-md-4">
+                        @Html.DropDownList("Sellers", (IEnumerable<SelectListItem>)ViewBag.Sellers, null, new { @id = "lstSellers" })
+                    </div>
+                }
             </div>
         </form>
     </div>
@@ -78,7 +97,8 @@
 
     $(document).ready(function () {
         debugger;
-        $("#datepicker").datepicker();
+        $("#dtLastPurchase").datepicker();
+        $("#dtUntil").datepicker();
         updateRegions();
     });
 
