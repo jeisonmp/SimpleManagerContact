@@ -28,7 +28,7 @@ namespace SimpleManagerContact.portal.Controllers
             ViewBag.Classifications = this.GetClassifications();
             ViewBag.Sellers = this.GetSellers();
 
-            return View(new core.Controllers.ClientController().GetList(SiteSession.Current.User));
+            return View(new List<Client>());
         }
 
         private IEnumerable<SelectListItem> GetCities()
@@ -137,7 +137,7 @@ namespace SimpleManagerContact.portal.Controllers
         {
             ViewBag.Administrator = SiteSession.Current.Administrator;
 
-            var clients = new core.Controllers.ClientController().Search(fields, user == null ? SiteSession.Current.User : user);
+            var clients = new core.Controllers.ClientController().Search(fields, user.UserId.Equals(default(Guid)) ? SiteSession.Current.User : user);
             return PartialView("_customerList", clients);
         }
     }

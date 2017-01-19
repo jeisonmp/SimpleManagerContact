@@ -28,7 +28,7 @@
                         new SelectListItem(){ Value="", Text="Select" },
                         new SelectListItem(){ Value="M", Text="Male" },
                         new SelectListItem(){ Value="F", Text="Female" }
-                    })
+                    }, new { @id = "Gender" })
                 </div>
             </div>
             <div class="row" style="margin-bottom:5px">
@@ -36,13 +36,13 @@
                     @Html.Label("City")
                 </div>
                 <div class="col-md-4">
-                    @Html.DropDownList("City", (IEnumerable<SelectListItem>)ViewBag.Cities, null, new { @id = "lstCities" })
+                    @Html.DropDownList("City", (IEnumerable<SelectListItem>)ViewBag.Cities, null, new { @id = "City" })
                 </div>
                 <div class="col-md-1">
                     @Html.Label("Region")
                 </div>
                 <div class="col-md-4">
-                    @Html.DropDownList("Region", Enumerable.Empty<SelectListItem>(), null, new { @id = "lstRegion" })
+                    @Html.DropDownList("Region", Enumerable.Empty<SelectListItem>(), null, new { @id = "Region" })
                 </div>
             </div>
             <div class="row" style="margin-bottom:5px">
@@ -50,13 +50,13 @@
                     @Html.Label("LastPurchase")
                 </div>
                 <div class="col-md-4">
-                    @Html.TextBox("LastPurchase", null, new { @id = "dtLastPurchase" })
+                    @Html.TextBox("LastPurchase", null, new { @id = "LastPurchase" })
                 </div>
                 <div class="col-md-1">
                     @Html.Label("Until")
                 </div>
                 <div class="col-md-4">
-                    @Html.TextBox("Until", null, new { @id = "dtUntil" })
+                    @Html.TextBox("Until", null, new { @id = "Until" })
                 </div>
             </div>
             <div class="row" style="margin-bottom:5px">
@@ -64,7 +64,7 @@
                     @Html.Label("Classification")
                 </div>
                 <div class="col-md-4">
-                    @Html.DropDownList("Classification", (IEnumerable<SelectListItem>)ViewBag.Classifications, null, new { @id = "lstClassification" })
+                    @Html.DropDownList("Classification", (IEnumerable<SelectListItem>)ViewBag.Classifications, null, new { @id = "Classification" })
                 </div>
                 @if (ViewBag.Administrator)
                 {
@@ -72,7 +72,7 @@
                         @Html.Label("Sellers")
                     </div>
                     <div class="col-md-4">
-                        @Html.DropDownList("Sellers", (IEnumerable<SelectListItem>)ViewBag.Sellers, null, new { @id = "lstSellers" })
+                        @Html.DropDownList("Sellers", (IEnumerable<SelectListItem>)ViewBag.Sellers, null, new { @id = "Sellers" })
                     </div>
                 }
             </div>
@@ -96,20 +96,18 @@
 <script>
 
     $(document).ready(function () {
-        debugger;
-        $("#dtLastPurchase").datepicker();
-        $("#dtUntil").datepicker();
+        $("#LastPurchase").datepicker({ dateFormat: 'mm/dd/yy' });
+        $("#Until").datepicker({ dateFormat: 'mm/dd/yy' });
         updateRegions();
     });
 
-    $("#lstCities").change(function () {
+    $("#City").change(function () {
         updateRegions();
     });
 
     function updateRegions()
     {
-        debugger;
-        var CityId = $('#lstCities').find(":selected").val();
+        var CityId = $('#City').find(":selected").val();
 
         $.ajax({
             type: "POST",
@@ -133,17 +131,23 @@
 
     function updatingRegions(data)
     {
-        $('#lstRegion').empty();
+        $('#Region').empty();
 
         $.each(data, function (idx, obj) {
-            $('#lstRegion').append(
+            $('#Region').append(
                 $('<option></option>').val(obj['Value']).html(obj['Text'])
             );
         });
     }
 
     $('#btnClear').click(function (e) {
+
         var data = $('#CustomerListFieldsForm').serializeFormToJSON();
+        $.each(data, function (index, value) {
+            debugger;
+            $("#" + index).val("");
+        });
+
     });
 
     updatingContacts()
@@ -165,7 +169,6 @@
                 fields: fields
             },
             success: function (result) {
-                debugger;
                 $(".table-customer").html(result)
             },
             error: function (error) {
