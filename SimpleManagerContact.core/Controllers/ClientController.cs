@@ -8,7 +8,7 @@ namespace SimpleManagerContact.core.Controllers
 {
     public partial class ClientController
     {
-        public List<Client> GetList(User user)
+        public List<Client> GetList(User user = null)
         {
             using (var db = new DBModel())
             {

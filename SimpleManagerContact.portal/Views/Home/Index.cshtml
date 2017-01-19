@@ -20,27 +20,31 @@
                 </div>
                 <div class="col-md-6">
                     @Html.Label("Gender")
-                    @Html.TextBox("Gender")
+                    @Html.DropDownList("Gender", new List<SelectListItem>() {
+                        new SelectListItem(){ Value="", Text="All" },
+                        new SelectListItem(){ Value="M", Text="Male" },
+                        new SelectListItem(){ Value="F", Text="Female" }
+                    })
                 </div>
             </div>
             <div class="row" style="margin-bottom:5px">
                 <div class="col-md-6">
                     @Html.Label("City")
-                    @Html.TextBox("City")
+                    @Html.DropDownList("City", (IEnumerable<SelectListItem>)ViewBag.Cities, null, new { @id = "lstCities" })
                 </div>
                 <div class="col-md-6">
                     @Html.Label("Region")
-                    @Html.TextBox("Region")
+                    @Html.DropDownList("Region", Enumerable.Empty<SelectListItem>(), null, new { @id = "lstRegion" })
                 </div>
             </div>
             <div class="row" style="margin-bottom:5px">
                 <div class="col-md-6">
                     @Html.Label("LastPurchase")
-                    @Html.TextBox("LastPurchase")
+                    @Html.Editor("LastPurchase", new { @id = "dtLastPurchase" })
                 </div>
                 <div class="col-md-6">
                     @Html.Label("Until")
-                    @Html.TextBox("Until")
+                    @Html.Editor("Until", new { @id = "dtUntil" })
                 </div>
             </div>
             <div class="row" style="margin-bottom:5px">
@@ -71,6 +75,52 @@
 
 @section Scripts {
 <script>
+
+    $(document).ready(function () {
+        debugger;
+        $("#datepicker").datepicker();
+        updateRegions();
+    });
+
+    $("#lstCities").change(function () {
+        updateRegions();
+    });
+
+    function updateRegions()
+    {
+        debugger;
+        var CityId = $('#lstCities').find(":selected").val();
+
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: '@Url.Action("UpdateRegions", "Home")',
+            dataType: "json",
+            data:
+            {
+                CityId: CityId
+            },
+            success: function (result) {
+                if (result.success) {
+                    updatingRegions(result.data);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
+    function updatingRegions(data)
+    {
+        $('#lstRegion').empty();
+
+        $.each(data, function (idx, obj) {
+            $('#lstRegion').append(
+                $('<option></option>').val(obj['Value']).html(obj['Text'])
+            );
+        });
+    }
 
     $('#btnClear').click(function (e) {
         var data = $('#CustomerListFieldsForm').serializeFormToJSON();

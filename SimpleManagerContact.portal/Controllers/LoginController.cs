@@ -41,13 +41,10 @@ namespace SimpleManagerContact.portal.Controllers
 
                 JsonAction jsonObject = new JsonAction();
                 jsonObject.success = true;
-                if (user.Name.ToUpper().Contains("SELLER")) // == (int)UserTypes.Role.Seller)
+                if (user.Name.ToUpper().Contains("SELLER") ||  /// == (int)UserTypes.Role.Seller)
+                    user.Name.ToUpper().Contains("ADMIN"))     /// == (int)UserTypes.Role.Admin)
                 {
-                    jsonObject.data = Url.Action("Index", "Home", new { role = "Seller" });
-                }
-                else if (user.Name.ToUpper().Contains("ADMIN")) // == (int)UserTypes.Role.Admin)
-                {
-                    jsonObject.data = Url.Action("Index", "Home", new { role = "Admin" });
+                    jsonObject.data = Url.Action("Index", "Home");
                 }
 
                 return Json(jsonObject);
@@ -63,7 +60,7 @@ namespace SimpleManagerContact.portal.Controllers
                 }
                 else
                 {
-                    jsonObject.message = "Não foi possível autenticar!";
+                    jsonObject.message = "Something's Wrong";
                 }
 
                 return Json(jsonObject);
